@@ -1,0 +1,22 @@
+{
+  "include": ["src"],
+
+  "exclude": [
+    "**/node_modules",
+    "**/__pycache__",
+    "src/experimental",
+    "src/typestubs",
+    ".venv",
+    ".git"
+  ],
+  "ignore": ["src/oldstuff", "alembic"],
+  "reportMissingImports": "error",
+  "reportMissingTypeStubs": false,
+
+  "pythonVersion": "3.13",
+  "pythonPlatform": "Darwin",
+
+  "reportUnknownMemberType": true,
+  "reportUntypedFunctionDecorator": true,
+  "typeCheckingMode": "recommended"
+}
