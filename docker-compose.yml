@@ -25,7 +25,7 @@ services:
       - MEOW=MEOW 
       # - REDIS_HOST=redis
       # - REDIS_PORT=6379
-      # - ENVIRONMENT=production
+      - ENVIRONMENT=production
     depends_on:
       - postgres
       # - redis
