@@ -1,8 +1,8 @@
-from fastapi import Depends, FastAPI
+from fastapi import FastAPI
 from sqlalchemy import text
-from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.db import get_db
+
+from src.db import db_session
 from src.settings import settings
 
 app = FastAPI()
@@ -23,6 +23,6 @@ async def envv():
 
 
 @app.get("/test_db")
-async def read_root(db: AsyncSession = Depends(get_db)):
+async def read_root(db: db_session):
     result = await db.execute(text("SELECT 1"))
     return {"result": result.scalar()}

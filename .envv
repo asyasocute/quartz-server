@@ -1,4 +1,0 @@
-DATABASE_URL = "postgresql+asyncpg://myuser:mypassword@localhost:5430/mydb"
-SERVER_ADDRESS = localhost
-SERVER_PORT = 8080
-gav=gav
