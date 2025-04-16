@@ -10,7 +10,10 @@ Add later
 
 ## TODO
 
-:3
+- :3
+- add ollama support
+- fix vulnerabilities ^_^
+- refactor code XD
 
 ## Start local development
 
