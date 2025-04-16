@@ -17,5 +17,12 @@ Add later
 - install uv
 - install docker
 - start docker
+- clone this repo
 - docker run --rm -d --name postgres -e POSTGRES_USER=myuser -e POSTGRES_PASSWORD=mypassword -p 5430:5432 postgres
 - docker exec -it postgres psql -U myuser -c 'CREATE DATABASE mydb;'
+- cp .env.example .env
+- uv run src/main.py
+
+or start with 
+
+docker-compose up
