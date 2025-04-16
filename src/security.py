@@ -47,7 +47,9 @@ async def get_current_user(session: SessionDep, token: TokenDep):
     try:
         payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[ALGORITHM])
         token_data = TokenPayload(**payload)
-        if datetime.fromtimestamp(token_data.exp, tz=timezone.utc) < datetime.now(timezone.utc):
+        if datetime.fromtimestamp(token_data.exp, tz=timezone.utc) < datetime.now(
+            timezone.utc
+        ):
             raise HTTPException(
                 status_code=401,
                 detail="Token expired",
@@ -57,7 +59,7 @@ async def get_current_user(session: SessionDep, token: TokenDep):
             status_code=401,
             detail="Could not validate credentials",
         )
-    
+
     query = select(UserModel).where(UserModel.id == int(token_data.sub))
     result = await session.execute(query)
     user = result.scalar_one_or_none()

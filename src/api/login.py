@@ -12,7 +12,7 @@ from src.crud import authenticate
 router = APIRouter(tags=["login"])
 
 
-@router.post("/login/access-token", response_model=Token)
+@router.post("/access-token", response_model=Token)
 async def login_access_token(
     session: SessionDep,
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
@@ -31,6 +31,6 @@ async def login_access_token(
     return Token(access_token=access_token)
 
 
-@router.post("/login/test-token")
+@router.post("/test-token", response_model=User)
 def test_token(current_user: CurrentUser) -> User:
     return User(username=current_user.username)

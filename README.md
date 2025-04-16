@@ -11,3 +11,11 @@ Add later
 ## TODO
 
 :3
+
+## Start local development
+
+- install uv
+- install docker
+- start docker
+- docker run --rm -d --name postgres -e POSTGRES_USER=myuser -e POSTGRES_PASSWORD=mypassword -p 5430:5432 postgres
+- docker exec -it postgres psql -U myuser -c 'CREATE DATABASE mydb;'
