@@ -23,3 +23,7 @@ class User(BaseModel):
 
 class UserCreate(User):
     password: str
+
+
+class Request(BaseModel):
+    prompt: str

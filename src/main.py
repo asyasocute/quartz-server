@@ -4,6 +4,7 @@ from sqlalchemy import text
 from starlette.responses import JSONResponse
 
 
+from src.settings import settings
 from src.db import SessionDep
 from starlette.middleware.base import BaseHTTPMiddleware
 from fastapi.middleware.cors import CORSMiddleware
@@ -24,6 +25,13 @@ async def root():
 async def read_root(db: SessionDep):
     result = await db.execute(text("SELECT 1"))
     return {"result": result.scalar()}
+
+
+@app.get("/env")
+async def env():
+    if settings.ENVIRONMENT == "local":
+        return settings.model_dump()
+    return None
 
 
 app.include_router(api_router, prefix="/api")
