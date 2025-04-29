@@ -23,6 +23,7 @@ Add later
 - clone this repo
 - docker run --rm -d --name postgres -e POSTGRES_USER=myuser -e POSTGRES_PASSWORD=mypassword -p 5430:5432 postgres
 - docker exec -it postgres psql -U myuser -c 'CREATE DATABASE mydb;'
+- alembic upgrade head
 - cp .env.example .env
 - fastapi dev --host 0.0.0.0 ./src/main.py
 

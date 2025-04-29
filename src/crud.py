@@ -33,3 +33,5 @@ async def authenticate(
     if user and pwd_context.verify(password, user.hashed_password):
         return user
     return None
+
+async def 

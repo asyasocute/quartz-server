@@ -2,6 +2,7 @@ from typing import Any
 from fastapi import HTTPException, status
 
 
+
 class BadRequestException(HTTPException):
     def __init__(self, detail: Any = None) -> None:
         super().__init__(
@@ -41,4 +42,11 @@ class ForbiddenException(HTTPException):
         super().__init__(
             status_code=status.HTTP_403_FORBIDDEN,
             detail=detail if detail else "Forbidden",
+        )
+
+class GeminiApiException(HTTPException):
+    def __init__(self) -> None:
+        super().__init__(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Request to google gemini api failed",
         )

@@ -16,8 +16,8 @@ class Settings(BaseSettings):
     def get_database_url(self):
         return self.DATABASE_URL
 
-    # class Config:
-    #     env_file: str = ".env"
+    class Config:
+        env_file: str = ".env"
 
 
 settings = Settings()
