@@ -2,7 +2,7 @@ from fastapi import HTTPException
 from sqlalchemy.sql.selectable import Select
 
 
-from sqlalchemy import select
+from sqlalchemy import select, update, delete
 from sqlalchemy.ext.asyncio import AsyncSession
 from starlette.status import HTTP_400_BAD_REQUEST
 from src.models.user import User
@@ -67,3 +67,32 @@ async def get_one_note(
     if not note:
         raise HTTPException(status_code=400)
     return NoteScheme(id=note.id, name=note.name, text=note.text, user_id=note.user_id)
+
+
+async def edit_note(
+    session: AsyncSession, note: NoteCreate, note_id: int, user_id: int
+) -> NoteScheme:
+    # query = (
+    #     update(Note)
+    #     .where(Note.user_id == user_id)
+    #     .where(Note.id == note_id)
+    #     .values(name=note.name, text=note.text)
+    # )
+    # await session.execute(query)
+    # await session.commit()
+    query = select(Note).where(Note.user_id == user_id).where(Note.id == note_id)
+    result = await session.execute(query)
+    e_note = result.scalar_one_or_none()
+    if not e_note:
+        raise HTTPException(status_code=400)
+    e_note.name = note.name
+    e_note.text = note.text
+    await session.commit()
+    await session.refresh(instance=e_note)
+    return NoteScheme(
+        id=e_note.id, user_id=e_note.user_id, name=e_note.name, text=e_note.text
+    )
+
+
+async def delete_note(note_id: int, session: AsyncSession, user_id: int):
+    return

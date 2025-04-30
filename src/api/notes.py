@@ -1,8 +1,12 @@
+from typing import Literal
+
+
 import uuid
 from fastapi import APIRouter
 
-from src.crud import add_note, all_notes, get_one_note
+from src.crud import add_note, all_notes, edit_note, get_one_note
 from src.db import SessionDep
+from src.models import note
 from src.schemas import NoteCreate, NoteScheme
 from src.security import CurrentUser
 
@@ -38,16 +42,21 @@ async def create_note(
 
 
 @router.patch("/edit")
-async def edit_note(
-    note_id: int, current_user: CurrentUser  # pyright: ignore[reportUnusedParameter]
-):
-    return "meow"
+async def edit_notes(
+    note_id: int,
+    new_note: NoteCreate,
+    session: SessionDep,
+    current_user: CurrentUser,  # pyright: ignore[reportUnusedParameter]
+) -> NoteScheme:
+    return await edit_note(
+        session=session, note=new_note, note_id=note_id, user_id=current_user.id
+    )
 
 
 @router.post("/delete")
 async def delete_note(
     note_id: int, current_user: CurrentUser  # pyright: ignore[reportUnusedParameter]
-):
+) -> Literal["meow"]:
     return "meow"
 
 
