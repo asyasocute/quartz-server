@@ -27,3 +27,15 @@ class UserCreate(User):
 
 class Request(BaseModel):
     prompt: str
+
+
+class NoteCreate(BaseModel):
+    name: str
+    text: str
+
+
+class NoteScheme(BaseModel):
+    id: int
+    user_id: int
+    name: str
+    text: str

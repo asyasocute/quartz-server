@@ -2,6 +2,8 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from src.models.user import User
 from src.security import get_password_hash, pwd_context
+from src.schemas import NoteCreate, NoteScheme
+from src.models.note import Note
 
 
 async def get_user_by_username(username: str, db: AsyncSession) -> User | None:
@@ -34,3 +36,12 @@ async def authenticate(
         return user
     return None
 
+
+async def add_note(session: AsyncSession, note: NoteCreate, user_id: int) -> NoteScheme:
+    new_note = Note(name=note.name, text=note.name, user_id=user_id)
+    session.add(new_note)
+    await session.commit()
+    await session.refresh(new_note)
+    return NoteScheme(
+        id=new_note.id, user_id=new_note.user_id, name=new_note.name, text=new_note.text
+    )

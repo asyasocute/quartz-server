@@ -1,6 +1,9 @@
 import uuid
 from fastapi import APIRouter
 
+from src.crud import add_note
+from src.db import SessionDep
+from src.schemas import NoteCreate, NoteScheme
 from src.security import CurrentUser
 
 
@@ -20,8 +23,12 @@ def get_notes(current_user: CurrentUser):  # pyright: ignore[reportUnusedParamet
 
 
 @router.post("/create")
-def create_note(current_user: CurrentUser):  # pyright: ignore[reportUnusedParameter]
-    return "meow"
+async def create_note(
+    new_note: NoteCreate,
+    current_user: CurrentUser,  # pyright: ignore[reportUnusedParameter]
+    session: SessionDep,
+) -> NoteScheme:
+    return await add_note(session=session, note=new_note, user_id=current_user.id)
 
 
 @router.patch("/edit")
