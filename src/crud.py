@@ -95,4 +95,11 @@ async def edit_note(
 
 
 async def delete_note(note_id: int, session: AsyncSession, user_id: int):
+    query = select(Note).where(Note.user_id == user_id).where(Note.id == note_id)
+    result = await session.execute(query)
+    note = result.scalar_one_or_none()
+    if not note:
+        raise HTTPException(status_code=400)
+    await session.delete(note)
+    await session.commit()
     return
