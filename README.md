@@ -12,7 +12,6 @@ Add later
 
 - :3
 - add ollama support
-- fix vulnerabilities ^_^
 - refactor code XD
 
 ## Start local development
