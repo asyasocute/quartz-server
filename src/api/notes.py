@@ -1,7 +1,7 @@
 import uuid
 from fastapi import APIRouter
 
-from src.crud import add_note
+from src.crud import add_note, all_notes, get_one_note
 from src.db import SessionDep
 from src.schemas import NoteCreate, NoteScheme
 from src.security import CurrentUser
@@ -11,15 +11,21 @@ router = APIRouter(tags=["notes"])
 
 
 @router.get("/")
-def get_note(
-    note_id: int, current_user: CurrentUser  # pyright: ignore[reportUnusedParameter]
+async def get_note(
+    note_id: int,
+    current_user: CurrentUser,
+    session: SessionDep,  # pyright: ignore[reportUnusedParameter]
 ):
-    return "meow"
+    return await get_one_note(note_id=note_id, session=session, user_id=current_user.id)
 
 
 @router.get("/all")
-def get_notes(current_user: CurrentUser):  # pyright: ignore[reportUnusedParameter]
-    return "meow"
+async def get_notes(
+    current_user: CurrentUser,
+    session: SessionDep,
+):  # pyright: ignore[reportUnusedParameter]
+
+    return await all_notes(session=session, user_id=current_user.id)
 
 
 @router.post("/create")
@@ -32,21 +38,21 @@ async def create_note(
 
 
 @router.patch("/edit")
-def edit_note(
+async def edit_note(
     note_id: int, current_user: CurrentUser  # pyright: ignore[reportUnusedParameter]
 ):
     return "meow"
 
 
 @router.post("/delete")
-def delete_note(
+async def delete_note(
     note_id: int, current_user: CurrentUser  # pyright: ignore[reportUnusedParameter]
 ):
     return "meow"
 
 
 @router.post("/tags")
-def tags(
+async def tags(
     note_id: int, current_user: CurrentUser  # pyright: ignore[reportUnusedParameter]
 ):
     return ["currently not working", "tag1", "tag2", "tag3"]
