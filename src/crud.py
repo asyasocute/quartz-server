@@ -34,4 +34,3 @@ async def authenticate(
         return user
     return None
 
-async def 

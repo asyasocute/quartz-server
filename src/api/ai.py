@@ -38,7 +38,7 @@ async def ai_parse(request: Request, current_user: CurrentUser):
 
 
 @router.post(path="/summarize")
-async def ai_summarize(request: Request, current_user: CurrentUser) :
+async def ai_summarize(request: Request, current_user: CurrentUser):
     try:
         response = await summarize_model.generate_content_async(request.prompt)
     except:
@@ -46,8 +46,3 @@ async def ai_summarize(request: Request, current_user: CurrentUser) :
     if settings.ENVIRONMENT == "local":
         print(request.prompt, response.text)
     return json.loads(response.text)
-
-
-# @router.post(path="/tags")
-# async def ai_tags(prompt: str, current_user: CurrentUser):
-#     return ["tag1", "tag2", "tag3"]
