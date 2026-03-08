@@ -1,19 +1,37 @@
-# Quartz server
+# Quartz Server
 
-## Intro
+Backend API for managing notes with user authentication and AI integration (Gemini, Ollama).
 
 i started developing this as my school project but now it just shows that i can create backend in python
 
-## Structure
+## Features
 
-Add later
+### Authentication
 
-## TODO
+- User registration and login with JWT tokens
+- Password hashing with bcrypt
+- Secure token-based API access
+- Superuser privileges support
 
-- :3
-- add ollama support
-- fix vulnerabilities ^_^
-- refactor code XD
+### Notes Management
+
+- Create, read, update, and delete notes
+- Notes are associated with user accounts
+- Full CRUD operations via REST API
+- Efficient async database queries
+
+### User Management
+
+- User registration and profile management
+- User-specific note organization
+- Account management endpoints
+
+### AI Integration
+
+- **Google Gemini** - Generative AI capabilities
+- **Ollama** - Local language model support
+- AI-powered text processing and analysis
+- Dedicated `/api/ai` endpoints for AI operations
 
 ## Start local development
 
